@@ -10,11 +10,11 @@ public class AccountHolderTest
 
         // Ask the user to for the initial account balance
         System.out.println("Please provide the initial account balance. Note: The annual interest rate is 4%.");
-        final Scanner scan = new Scanner(System.in);
-        final double initialBal = scan.nextDouble();
+        Scanner scan = new Scanner(System.in);
+        double initialBal = scan.nextDouble();
 
         // Create object with provided initial balance
-        final AccountHolder ah1 = new AccountHolder(initialBal);
+        AccountHolder ah1 = new AccountHolder(initialBal);
 
         // Ask the user to make a deposit
         System.out.println("Please provide an amount to deposite into account: ");
