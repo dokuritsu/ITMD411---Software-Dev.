@@ -27,7 +27,7 @@ public class AccountHolder {
         if(check < 50){
             System.out.println("Balance must hold to at least $50");
         } else {
-            this.balance = check;
+            setBalance(check);
         }
     }
 
