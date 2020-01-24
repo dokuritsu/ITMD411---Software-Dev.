@@ -10,8 +10,8 @@ public class AccountHolderTest
 {
     public static void main(final String[] args) {
 
-        // Initially the interest for the bank will be set to 4%
 
+        // Initially the interest for the bank will be set to 4%
         // Ask the user to for the initial account balance
         System.out.println("Please provide the initial account balance. Note: The annual interest rate is 4%.");
         Scanner scan = new Scanner(System.in);
@@ -36,11 +36,13 @@ public class AccountHolderTest
         ah1.monthlyInterest();
 
         // Inform the user of the final balance
-        final String finalBal = String.format("Ending balance for the month including monthly interest: %.2f",
+
+        
+        String finalBal = String.format("Ending balance for the month including monthly interest: %.2f",
                 ah1.getBalance());
         System.out.println(finalBal);
-        
-        //Close the scanner
+
+        // Close the scanner
         scan.close();
 
     }
