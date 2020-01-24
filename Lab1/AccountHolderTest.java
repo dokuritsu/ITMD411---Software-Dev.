@@ -7,7 +7,6 @@ public class AccountHolderTest
     public static void main(String[] args) {
 
         //Initially the interest for the bank will be set to 4%
-        double interestRate = 0.04;
 
         //Ask the user to for the initial account balance
         System.out.println("Please provide the initial account balance. Note: The annual interest rate is 4%.");
@@ -29,6 +28,13 @@ public class AccountHolderTest
         //Withdraw
         ah1.withdrawal(scan.nextDouble());
 
-        //Display the ending balance
+        //Calculate the balance at the end of month
+        ah1.monthlyInterest();
+
+        //Inform the user of the final balance
+        String finalBal = String.format("Ending balance for the month including monthly interest: %.2f", ah1.getBalance());
+        System.out.println(finalBal);
+        
+
     }
 }

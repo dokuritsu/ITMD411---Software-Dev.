@@ -2,7 +2,7 @@ package Lab1;
 
 public class AccountHolder {
     private double balance;
-    private static double annualInterestRate;
+    private static double annualInterestRate = 0.04;
 
     //Constructor
     public AccountHolder(double balance){
