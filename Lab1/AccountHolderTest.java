@@ -17,7 +17,7 @@ public class AccountHolderTest
         AccountHolder ah1 = new AccountHolder(initialBal);
 
         // Ask the user to make a deposit
-        System.out.println("Please provide an amount to deposite into account: ");
+        System.out.println("Please provide an amount to deposit into account: ");
 
         // Do the deposit
         ah1.deposit(scan.nextDouble());
