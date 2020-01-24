@@ -16,5 +16,19 @@ public class AccountHolderTest
 
         //Create object with provided initial balance
         AccountHolder ah1 = new AccountHolder(initialBal);
+
+        //Ask the user to make a deposit
+        System.out.println("Please provide an amount to deposite into account: ");
+
+        //Do the deposit
+        ah1.deposit(scan.nextDouble());
+
+        //Ask the user to make a withdrawal
+        System.out.println("Please provide an amount to withdraw from account:");
+        
+        //Withdraw
+        ah1.withdrawal(scan.nextDouble());
+
+        //Display the ending balance
     }
 }
