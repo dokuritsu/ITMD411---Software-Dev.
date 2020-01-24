@@ -1,3 +1,7 @@
+/* Lab 1 - Bank Account Simulator
+   By: Laura Pereda
+*/
+
 package Lab1;
 
 public class AccountHolder {
