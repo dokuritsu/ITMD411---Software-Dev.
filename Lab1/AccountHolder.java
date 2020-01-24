@@ -17,17 +17,16 @@ public class AccountHolder {
 
     //Method to deposit to account
     public void deposit(double deposit) {
-        this.balance += this.balance + deposit;
+        this.balance += deposit;
     }
 
     //Method to withdraw from account
     public void withdrawal(double withdrawal) {
         //First check if the withdrawal would put balance less than 50
-        double check = this.balance - withdrawal;
-        if(check < 50){
-            System.out.println("Balance must hold to at least $50");
+        if((this.balance - withdrawal) < 50){
+            System.out.println("Balance must hold to at least $50. Unable to perform transaction.");
         } else {
-            setBalance(check);
+            this.balance -= this.balance - withdrawal;
         }
     }
 
