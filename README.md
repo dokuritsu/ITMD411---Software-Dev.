@@ -1,1 +1,3 @@
-Hello
+ITMD411 - Intermediate Software Development
+-----------------------------------------------------------------------
+This covers object oriented programming concepts in the Java Standard Edition platform. Data strcutures, stream I/O, serialization, concurrency, and graphical clients are covered. Software engineering topics that are covered include packaging, deployment, debugging and unit testing. Final project for this course integrates course topics into a contemporary Graphical User Interface client application.
