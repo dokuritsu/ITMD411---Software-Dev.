@@ -37,7 +37,7 @@ public class AccountHolderTest
 
         // Inform the user of the final balance
 
-        
+        System.out.println("Programmed by Laura Pereda");
         String finalBal = String.format("Ending balance for the month including monthly interest: %.2f",
                 ah1.getBalance());
         System.out.println(finalBal);
