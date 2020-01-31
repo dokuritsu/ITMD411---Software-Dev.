@@ -10,7 +10,7 @@ public class AccountHolderTest
 {
     public static void main(final String[] args) {
 
-
+        System.out.println("Programmed by Laura Pereda");
         // Initially the interest for the bank will be set to 4%
         // Ask the user to for the initial account balance
         System.out.println("Please provide the initial account balance. Note: The annual interest rate is 4%.");
@@ -37,7 +37,6 @@ public class AccountHolderTest
 
         // Inform the user of the final balance
 
-        System.out.println("Programmed by Laura Pereda");
         String finalBal = String.format("Ending balance for the month including monthly interest: %.2f",
                 ah1.getBalance());
         System.out.println(finalBal);
