@@ -26,13 +26,13 @@ public class AccountHolder {
         if((this.balance - withdrawal) < 50){
             System.out.println("Balance must hold to at least $50. Unable to perform transaction.");
         } else {
-            this.balance -= this.balance - withdrawal;
+            this.balance -= withdrawal;
         }
     }
 
     //Method to calculate monthly interest
     public void monthlyInterest() {
-        this.balance += this.balance * (annualInterestRate/12.0);
+        this.balance += (this.balance * (annualInterestRate/12.0));
     }
 
     public double getBalance() {
