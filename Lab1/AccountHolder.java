@@ -12,7 +12,11 @@ public class AccountHolder {
     public AccountHolder(double balance){
         //Check if the balance is less than 0
         //If so, set it to 0 automatically, otherwise set it to requested balance
-        this.balance = balance < 0 ? 0:balance;
+        if(this.balance < 0){
+            throw new IllegalArgumentException("Balance must be non-negative");
+        } else {
+            this.balance = balance;
+        }
     }
 
     //Method to deposit to account
