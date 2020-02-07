@@ -13,7 +13,7 @@ public class AccountHolder {
         //Check if the balance is less than 0
         //If so, set it to 0 automatically, otherwise set it to requested balance
         if(this.balance < 0){
-            throw new IllegalArgumentException("Balance must be non-negative");
+            throw new IllegalArgumentException("Initial Balance must be non-negative");
         } else {
             this.balance = balance;
         }
@@ -21,7 +21,11 @@ public class AccountHolder {
 
     //Method to deposit to account
     public void deposit(double deposit) {
-        this.balance += deposit;
+        if(deposit < 0){
+            throw new IllegalArgumentException("This is for depositing, not withdrawing");
+        } else {
+            this.balance += deposit;
+        }
     }
 
     //Method to withdraw from account
