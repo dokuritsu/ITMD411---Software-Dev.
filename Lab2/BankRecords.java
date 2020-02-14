@@ -19,7 +19,7 @@ public class BankRecords extends Client{
     private String pep;
 
     //ArrayList to manage data
-    private ArrayList<BankRecords> bArrayList;
+    private static ArrayList<BankRecords> bArrayList;
 
     /*
     *   Constructor with no parameters
@@ -169,7 +169,7 @@ public class BankRecords extends Client{
                 bankRecords.setRegion(data[3]);                                     //data[3] : String region
                 bankRecords.setIncome(Integer.parseInt(data[4]));                   //data[4] : int income
                 bankRecords.setMartialStatus(data[5]);                              //data[5] : String region
-                bankRecords.setTotalChildren(Integer.parseInt(data[6]);             //data[6] : int children
+                bankRecords.setTotalChildren(Integer.parseInt(data[6]));             //data[6] : int children
                 bankRecords.setHasCar(data[7]);                                     //data[7] : String car
                 bankRecords.setSave_act(data[8]);                                   //data[8] : String sav_act
                 bankRecords.setCurrent_act(data[9]);                                //data[9] : String curr_act
@@ -179,6 +179,8 @@ public class BankRecords extends Client{
                 //Add object to empty bArrayList
                 bArrayList.add(bankRecords);
 
+                //To check
+                System.out.println(bankRecords.toString());
             }
 
             //Call printData()
@@ -197,8 +199,6 @@ public class BankRecords extends Client{
                 }
             }
         }
-
-
     }
 
     /*
@@ -218,13 +218,20 @@ public class BankRecords extends Client{
     */
     @Override
     public void printData() {
-        for(int i = 0; i <= 25; i++){
-            
-        }
 
+    }
+
+    @Override
+    public String toString() {
+        return "BankRecords [age=" + age + ", bArrayList=" + bArrayList + ", current_act=" + current_act + ", hasCar="
+                + hasCar + ", id=" + id + ", income=" + income + ", martialStatus=" + martialStatus + ", mortgage="
+                + mortgage + ", pep=" + pep + ", region=" + region + ", save_act=" + save_act + ", sex=" + sex
+                + ", totalChildren=" + totalChildren + "]";
     }
 
     public static void main(String[] args) {
         //Call readData to begin reading and parsing data, which will lead to printing
+        
     }
+
 }
