@@ -9,7 +9,7 @@ public class BankRecords extends Client{
     private int age;
     private String sex;
     private String region;
-    private int income;
+    private double income;
     private String martialStatus;
     private int totalChildren;
     private String hasCar;
@@ -79,11 +79,11 @@ public class BankRecords extends Client{
         this.region = region;
     }
 
-    public int getIncome() {
+    public double getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 
@@ -167,7 +167,7 @@ public class BankRecords extends Client{
                 bankRecords.setAge(Integer.parseInt(data[1]));                      //data[1] : int age
                 bankRecords.setSex(data[2]);                                        //data[2] : String sex
                 bankRecords.setRegion(data[3]);                                     //data[3] : String region
-                bankRecords.setIncome(Integer.parseInt(data[4]));                   //data[4] : int income
+                bankRecords.setIncome(Double.parseDouble(data[4]));                   //data[4] : int income
                 bankRecords.setMartialStatus(data[5]);                              //data[5] : String region
                 bankRecords.setTotalChildren(Integer.parseInt(data[6]));             //data[6] : int children
                 bankRecords.setHasCar(data[7]);                                     //data[7] : String car
@@ -178,9 +178,6 @@ public class BankRecords extends Client{
 
                 //Add object to empty bArrayList
                 bArrayList.add(bankRecords);
-
-                //To check
-                System.out.println(bankRecords.toString());
             }
 
             //Call printData()
@@ -218,20 +215,45 @@ public class BankRecords extends Client{
     */
     @Override
     public void printData() {
+        //Header to print information
+        System.out.println("ID\t\tAGE\t\tSEX\t\tREGION\t\tINCOME\t\t\tMORTGAGE");
 
-    }
+        //Created a for loop to only print out the first 25 objects with information
+        for(int i = 0; i <= 25; i++){
+            String id = bArrayList.get(i).getId();
+            String removeID = id.replace("id", "");
+            int age = bArrayList.get(i).getAge();
+            String sex = bArrayList.get(i).getSex();
+            String region = bArrayList.get(i).getRegion();
+            Double income = bArrayList.get(i).getIncome();
+            String mortgage = bArrayList.get(i).getMortgage();
 
-    @Override
-    public String toString() {
-        return "BankRecords [age=" + age + ", bArrayList=" + bArrayList + ", current_act=" + current_act + ", hasCar="
-                + hasCar + ", id=" + id + ", income=" + income + ", martialStatus=" + martialStatus + ", mortgage="
-                + mortgage + ", pep=" + pep + ", region=" + region + ", save_act=" + save_act + ", sex=" + sex
-                + ", totalChildren=" + totalChildren + "]";
+            /*  Because of formatting issues, I decided to abbreiviate REGION
+            *   INNER_CITY = IC
+            *   SUBURBAN = SUB
+            *   Note: I removed the string "id" from the ID of each object since it is redundant to maintain
+            */
+            String abbriviatedRegion = "";
+            String printOut = "";
+            if(region.equals("INNER_CITY")){
+                abbriviatedRegion = "IC";
+                printOut = String.format("%s\t\t%d\t\t%s\t\t%s\t\t%.3f\t\t%s", removeID, age, sex, abbriviatedRegion, income, mortgage);
+            } else if(region.equals("SUBURBAN")) {
+                abbriviatedRegion = "SUB";
+                printOut = String.format("%s\t\t%d\t\t%s\t\t%s\t\t%.3f\t\t%s", removeID, age, sex, abbriviatedRegion, income, mortgage);
+
+            } else {
+                printOut = String.format("%s\t\t%d\t\t%s\t\t%s\t\t%.3f\t\t%s", removeID, age, sex, region, income, mortgage);
+            }
+            System.out.println(printOut);
+            //System.out.println(id + "\t\t" + age + "\t\t" + sex + "\t\t" + region + "\t\t" + income + "\t\t" + mortgage);
+        }
     }
 
     public static void main(String[] args) {
         //Call readData to begin reading and parsing data, which will lead to printing
-        
+        BankRecords br = new BankRecords();
+        br.readData();
     }
 
 }
