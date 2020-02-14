@@ -181,6 +181,9 @@ public class BankRecords extends Client{
 
             }
 
+            //Call printData()
+            processData();
+
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){
@@ -205,6 +208,7 @@ public class BankRecords extends Client{
     @Override
     public void processData() {
         // TODO Auto-generated method stub
+        printData();
 
     }
 
@@ -214,9 +218,13 @@ public class BankRecords extends Client{
     */
     @Override
     public void printData() {
-        // TODO Auto-generated method stub
+        for(int i = 0; i <= 25; i++){
+            
+        }
 
     }
 
-    
+    public static void main(String[] args) {
+        //Call readData to begin reading and parsing data, which will lead to printing
+    }
 }
