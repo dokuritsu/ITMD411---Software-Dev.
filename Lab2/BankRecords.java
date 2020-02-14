@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class BankRecords extends Client{
     private String id;
     private int age;
@@ -11,6 +14,22 @@ public class BankRecords extends Client{
     private String current_act;
     private String mortgage;
     private String pep;
+
+    public BankRecords(String id, int age, String sex, String region, int income, String martialStatus,
+            int totalChildren, String hasCar, String save_act, String current_act, String mortgage, String pep) {
+        this.id = id;
+        this.age = age;
+        this.sex = sex;
+        this.region = region;
+        this.income = income;
+        this.martialStatus = martialStatus;
+        this.totalChildren = totalChildren;
+        this.hasCar = hasCar;
+        this.save_act = save_act;
+        this.current_act = current_act;
+        this.mortgage = mortgage;
+        this.pep = pep;
+    }
 
     public String getId() {
         return id;
@@ -113,7 +132,17 @@ public class BankRecords extends Client{
     */
     @Override
     public void readData() {
-        // TODO Auto-generated method stub
+
+        String line = "";
+
+        try{
+            //Create and initialize a new reader object to read from the CSV file
+            FileReader fr = new FileReader("bank-Detail.csv");
+            BufferedReader br = new BufferedReader(fr);
+
+
+        }
+
 
     }
 
@@ -136,5 +165,6 @@ public class BankRecords extends Client{
         // TODO Auto-generated method stub
 
     }
+
     
 }
