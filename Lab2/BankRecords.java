@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class BankRecords extends Client{
     private String id;
@@ -15,6 +18,19 @@ public class BankRecords extends Client{
     private String mortgage;
     private String pep;
 
+    //ArrayList to manage data
+    private ArrayList<BankRecords> bArrayList;
+
+    /*
+    *   Constructor with no parameters
+    */
+    public BankRecords(){
+
+    }
+
+    /*
+    *   Constructor with parameters
+    */
     public BankRecords(String id, int age, String sex, String region, int income, String martialStatus,
             int totalChildren, String hasCar, String save_act, String current_act, String mortgage, String pep) {
         this.id = id;
@@ -133,14 +149,44 @@ public class BankRecords extends Client{
     @Override
     public void readData() {
 
+        BufferedReader br = null;
         String line = "";
+        bArrayList = new ArrayList<>();
 
         try{
             //Create and initialize a new reader object to read from the CSV file
             FileReader fr = new FileReader("bank-Detail.csv");
-            BufferedReader br = new BufferedReader(fr);
+            br = new BufferedReader(fr);
 
+            while((line = br.readLine()) != null){
+                String[] data = line.split(",");
+                BankRecords bankRecords = new BankRecords();
+                bankRecords.setId(data[0]);                                         //data[0] : String id
+                bankRecords.setAge(Integer.parseInt(data[1]));                      //data[1] : int age
+                bankRecords.setSex(data[2]);                                        //data[2] : String sex
+                bankRecords.setRegion(data[3]);                                     //data[3] : String region
+                bankRecords.setIncome(Integer.parseInt(data[4]));                   //data[4] : int income
+                bankRecords.setMartialStatus(data[5]);                              //data[5] : String region
+                bankRecords.setTotalChildren(Integer.parseInt(data[6]);             //data[6] : int children
+                bankRecords.setHasCar(data[7]);                                     //data[7] : String car
+                bankRecords.setSave_act(data[8]);                                   //data[8] : String sav_act
+                bankRecords.setCurrent_act(data[9]);                                //data[9] : String curr_act
+                bankRecords.setMortgage(data[10]);                                  //data[10]: String mortgage
+                bankRecords.setPep(data[11]);                                       //data[11]: String pep
+            }
 
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            if (br != null){
+                try{
+                    br.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
         }
 
 
