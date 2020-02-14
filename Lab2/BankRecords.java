@@ -215,6 +215,7 @@ public class BankRecords extends Client{
     */
     @Override
     public void printData() {
+        System.out.println("Programmer: Laura Pereda");
         //Header to print information
         System.out.println("ID\t\tAGE\t\tSEX\t\tREGION\t\tINCOME\t\t\tMORTGAGE");
 
