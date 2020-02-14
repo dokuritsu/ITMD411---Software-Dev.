@@ -160,6 +160,8 @@ public class BankRecords extends Client{
 
             while((line = br.readLine()) != null){
                 String[] data = line.split(",");
+
+                //Create an empty BankRecord object & set the data
                 BankRecords bankRecords = new BankRecords();
                 bankRecords.setId(data[0]);                                         //data[0] : String id
                 bankRecords.setAge(Integer.parseInt(data[1]));                      //data[1] : int age
@@ -173,6 +175,10 @@ public class BankRecords extends Client{
                 bankRecords.setCurrent_act(data[9]);                                //data[9] : String curr_act
                 bankRecords.setMortgage(data[10]);                                  //data[10]: String mortgage
                 bankRecords.setPep(data[11]);                                       //data[11]: String pep
+
+                //Add object to empty bArrayList
+                bArrayList.add(bankRecords);
+
             }
 
         } catch (FileNotFoundException e){
