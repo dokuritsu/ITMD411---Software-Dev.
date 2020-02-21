@@ -1,8 +1,7 @@
 /* Lab 1 - Bank Account Simulator
    By: Laura Pereda
 */
-
-package Lab1;
+package app;
 
 public class AccountHolder {
     private double balance;

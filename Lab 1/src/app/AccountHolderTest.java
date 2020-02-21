@@ -2,7 +2,7 @@
    By: Laura Pereda
 */
 
-package Lab1;
+package app;
 
 import java.util.Scanner;
 
