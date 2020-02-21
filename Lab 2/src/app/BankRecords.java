@@ -157,7 +157,9 @@ public class BankRecords extends Client{
 
         try{
             //Create and initialize a new reader object to read from the CSV file
-            FileReader fr = new FileReader("bank-Detail.csv");
+            String workingDir = System.getProperty("user.dir");
+            System.out.println(workingDir);
+            FileReader fr = new FileReader(workingDir+"\\Lab 2\\bank-Detail.csv");
             br = new BufferedReader(fr);
 
             while((line = br.readLine()) != null){
