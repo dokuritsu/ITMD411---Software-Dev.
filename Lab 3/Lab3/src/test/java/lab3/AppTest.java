@@ -1,4 +1,4 @@
-package com.lypereda.Lab3;
+package lab3;
 
 import org.junit.Test;
 

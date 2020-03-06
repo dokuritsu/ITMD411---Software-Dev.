@@ -1,4 +1,4 @@
-package com.lypereda.Lab3;
+package lab3;
 
 /**
  * Hello world!
