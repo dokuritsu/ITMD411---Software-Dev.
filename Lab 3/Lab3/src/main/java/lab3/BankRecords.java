@@ -249,7 +249,7 @@ public class BankRecords extends Client {
         this.pep = pep;
     }
 
-    public static ArrayList<BankRecords> getbArrayList() {
+    public ArrayList<BankRecords> getbArrayList() {
         return bArrayList;
     }
 
