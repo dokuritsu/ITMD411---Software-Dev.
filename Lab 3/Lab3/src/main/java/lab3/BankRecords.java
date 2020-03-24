@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Hello world!
  */
-public final class BankRecords extends Client {
+public class BankRecords extends Client {
 
     //BankRecords variables
     private String id;
@@ -26,9 +26,15 @@ public final class BankRecords extends Client {
     private String pep;
     private static ArrayList<BankRecords> bArrayList;
 
-    private BankRecords() {
+    /*
+    *   Constructor with no parameters
+    */
+    protected BankRecords() {
     }
 
+    /*
+    *   Constructor with parameters
+    */
     public BankRecords(String id, int age, String sex, String region, double income, String martialStatus,
             int totalChildren, String hasCar, String save_act, String current_act, String mortgage, String pep) {
         this.id = id;
@@ -52,6 +58,7 @@ public final class BankRecords extends Client {
     public static void main(String[] args) {
         BankRecords br = new BankRecords();
         br.readData();
+        br.printData();
     }
 
     @Override
@@ -64,7 +71,7 @@ public final class BankRecords extends Client {
             //Create and initialize a new reader object to read from the CSV file
             String workingDir = System.getProperty("user.dir");
             System.out.println(workingDir);
-            FileReader fr = new FileReader(workingDir+"\\Lab 2\\bank-Detail.csv");
+            FileReader fr = new FileReader(workingDir+"\\bank-Detail.csv");
             br = new BufferedReader(fr);
 
             while((line = br.readLine()) != null){
