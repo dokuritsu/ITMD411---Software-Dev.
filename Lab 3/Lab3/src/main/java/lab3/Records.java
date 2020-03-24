@@ -22,6 +22,7 @@ public class Records extends BankRecords {
         records.readData();
 
         //See the first 10 unsorted items
+        System.out.println("Unsorted");
         for(int i = 0; i < records.getbArrayList().size(); i++){
             System.out.println(records.getbArrayList().get(i));
         }

@@ -257,6 +257,11 @@ public class BankRecords extends Client {
         BankRecords.bArrayList = bArrayList;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "BankRecords [age=" + age + ", current_act=" + current_act + ", hasCar=" + hasCar + ", id=" + id
+                + ", income=" + income + ", martialStatus=" + martialStatus + ", mortgage=" + mortgage + ", pep=" + pep
+                + ", region=" + region + ", save_act=" + save_act + ", sex=" + sex + ", totalChildren=" + totalChildren
+                + "]";
+    }
 }
