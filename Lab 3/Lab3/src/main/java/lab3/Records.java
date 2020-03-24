@@ -1,5 +1,7 @@
 package lab3;
 
+import java.util.Collections;
+
 public class Records extends BankRecords {
 
     public Records () {
@@ -14,7 +16,16 @@ public class Records extends BankRecords {
     }
     
     public static void main(String[] args) {
-            
+        Records records = new Records();
+        records.readData();
+
+
     }
 
+    /*
+    *   Method to determine average income by sec
+    */
+    public static void AvgIncome(Records aRecords){
+        Collections.sort(aRecords, new SexComparator());
+    }
 }
