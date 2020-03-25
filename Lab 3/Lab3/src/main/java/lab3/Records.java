@@ -1,13 +1,20 @@
 package lab3;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Records extends BankRecords {
+    static FileWriter fw = null;
 
     public Records() {
-        super();
+        try{
+            fw = new FileWriter("bankrecords.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -26,6 +33,13 @@ public class Records extends BankRecords {
         System.out.println("Data Analytic Results: ");
         AvgIncome(records.getbArrayList());
         locationComp(records.getbArrayList());
+
+        // Close out file object
+        try {
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -78,10 +92,19 @@ public class Records extends BankRecords {
         double avgFIncome = totalFIncome/fCount;
         double avgMIncome = totalMIncome/mCount;
         
+        // Try to write to file obj
         DecimalFormat df = new DecimalFormat("##.##");
+        try {
+            fw.write("Data Analytic Results by Laura Pereda: " + "\n");
+            fw.write("Average income for Females: $" + df.format(avgFIncome) + "\n");
+            fw.write("Average income for Males: $" + df.format(avgMIncome)  + "\n");
+            fw.write("Num. of Females with Mortgage & Savings Acct: " + mort_sav  + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Average income for Females: $" + df.format(avgFIncome));
         System.out.println("Average income for Males: $" + df.format(avgMIncome));
-
         System.out.println("Num. of Females with Mortgage & Savings Acct: " + mort_sav);
     }
 
@@ -110,6 +133,15 @@ public class Records extends BankRecords {
             }
         }
 
+        // Write to exisiting file obj
+        try {
+            fw.write("Innercity region males with car & 1 child: " + innerChildren  + "\n");
+            fw.write("Rural region males with car & 1 child: " + ruralChildren  + "\n");
+            fw.write("Suburban region males with car & 1 child: " + suburbanChildren  + "\n");
+            fw.write("Town region males with car & 1 child: " + townChildren  + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Innercity region males with car & 1 child: " + innerChildren);
         System.out.println("Rural region males with car & 1 child: " + ruralChildren);
         System.out.println("Suburban region males with car & 1 child: " + suburbanChildren);
