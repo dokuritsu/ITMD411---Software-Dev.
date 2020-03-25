@@ -95,4 +95,8 @@ public class Records extends BankRecords {
 
         System.out.println("Num. of Females with Mortgage & Savings Acct: " + mort_sav);
     }
+
+    public static void locationComp(ArrayList<BankRecords> arrayList) {
+        
+    }
 }
