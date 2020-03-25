@@ -25,18 +25,7 @@ public class Records extends BankRecords {
         // Calculate the average income for sex
         System.out.println("Data Analytic Results: ");
         AvgIncome(records.getbArrayList());
-        //See the first 10 unsorted items
-        // System.out.println("Unsorted");
-        // for(int i = 0; i < 10; i++){
-        //     System.out.println(records.getbArrayList().get(i));
-        // }
-
-        //See the first 10 sorted items
-        // System.out.println("Sorted");
-        // AvgIncome(records.getbArrayList());
-        // for(int i = 0; i < 10; i++){
-        //     System.out.println(records.getbArrayList().get(i));
-        // }
+        locationComp(records.getbArrayList());
     }
 
     /*
@@ -97,6 +86,33 @@ public class Records extends BankRecords {
     }
 
     public static void locationComp(ArrayList<BankRecords> arrayList) {
-        
+
+        // Sort the records based on Location
+        Collections.sort(arrayList, new LocationComparator());
+
+        /*
+        *   Keep track of children per region
+        */
+        int innerChildren, ruralChildren, suburbanChildren, townChildren;
+        innerChildren = ruralChildren = suburbanChildren = townChildren = 0;
+
+        for (int i = 0; i < arrayList.size(); i++){
+            if (arrayList.get(i).getHasCar().equals("YES") && arrayList.get(i).getTotalChildren() == 1 && arrayList.get(i).getSex().equals("MALE")) {
+                if (arrayList.get(i).getRegion().equals("INNER_CITY")) {
+                    innerChildren++;
+                } else if (arrayList.get(i).getRegion().equals("RURAL")) {
+                    ruralChildren++;
+                } else if (arrayList.get(i).getRegion().equals("SUBURBAN")) {
+                    suburbanChildren++;
+                } else {
+                    townChildren++;
+                }
+            }
+        }
+
+        System.out.println("Innercity region males with car & 1 child: " + innerChildren);
+        System.out.println("Rural region males with car & 1 child: " + ruralChildren);
+        System.out.println("Suburban region males with car & 1 child: " + suburbanChildren);
+        System.out.println("Town region males with car & 1 child: " + townChildren);
     }
 }
