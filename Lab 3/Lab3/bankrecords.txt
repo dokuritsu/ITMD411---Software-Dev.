@@ -1,4 +1,5 @@
 Data Analytic Results by Laura Pereda: 
+Date: 3/27/20, Time: 12:40PM
 Average income for Females: $28646.32
 Average income for Males: $27225.83
 Num. of Females with Mortgage & Savings Acct: 71
