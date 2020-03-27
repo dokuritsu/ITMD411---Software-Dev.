@@ -6,6 +6,3 @@ Innercity region males with car & 1 child: 15
 Rural region males with car & 1 child: 9
 Suburban region males with car & 1 child: 3
 Town region males with car & 1 child: 7
-
-Name: Laura Pereda
-Date: 3/27/20 11:10AM

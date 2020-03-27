@@ -96,6 +96,7 @@ public class Records extends BankRecords {
         DecimalFormat df = new DecimalFormat("##.##");
         try {
             fw.write("Data Analytic Results by Laura Pereda: " + "\n");
+            fw.write("Date: 3/27/20, Time: 12:40PM");
             fw.write("Average income for Females: $" + df.format(avgFIncome) + "\n");
             fw.write("Average income for Males: $" + df.format(avgMIncome)  + "\n");
             fw.write("Num. of Females with Mortgage & Savings Acct: " + mort_sav  + "\n");
