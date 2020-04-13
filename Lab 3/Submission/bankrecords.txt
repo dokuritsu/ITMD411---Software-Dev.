@@ -1,0 +1,9 @@
+Data Analytic Results by Laura Pereda: 
+Date: 3/27/20, Time: 12:40PM
+Average income for Females: $28646.32
+Average income for Males: $27225.83
+Num. of Females with Mortgage & Savings Acct: 71
+Innercity region males with car & 1 child: 15
+Rural region males with car & 1 child: 9
+Suburban region males with car & 1 child: 3
+Town region males with car & 1 child: 7
