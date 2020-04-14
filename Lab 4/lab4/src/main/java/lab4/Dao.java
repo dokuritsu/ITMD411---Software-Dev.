@@ -30,7 +30,7 @@ public class Dao {
 
             // Query
             String sql = "CREATE TABLE L_PERE_tab_test " +
-                        "pid INTEGER not NULL AUTO_INCREMENT, " +
+                        "(pid INTEGER not NULL AUTO_INCREMENT, " +
                         "id VARCHAR(10), " +
                         "income numeric(8,2)," +
                         "pep VARCHAR(4), " +

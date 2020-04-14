@@ -1,10 +1,8 @@
 package lab4;
 
-import java.sql.ResultSet;
-
 // Imports
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoanProcessing extends BankRecords{
 
@@ -17,12 +15,41 @@ public class LoanProcessing extends BankRecords{
         br.readData();
 
         // Create a table; Comment out after running once
-        dao.createTables();
+        //dao.createTables();
 
         // Insert the records
-        dao.insertRecords(br.getbArrayList());
+        //dao.insertRecords(br.getbArrayList());
 
         // Fill the result set object
         ResultSet rs = dao.retrieveRecords();
+
+        // try{ 
+        //     ResultSetMetaData rsmd = rs.getMetaData();
+
+        //     int columnCount = rsmd.getColumnCount();
+        //     System.out.println(columnCount);
+        // } catch (SQLException se){
+        //     se.printStackTrace();
+        // }
+
+        System.out.println(" ID:\t\tINCOME:\t\t\t PEP:");
+
+        // Extracting data from result set
+        try {
+            while(rs.next()) {
+                String id = rs.getString(1);
+                String removeID = id.replace("id", "");
+                String income = rs.getString(2);
+                String pep = rs.getString(3);
+
+                String printout = String.format("%s\t\t%s \t\t%s", removeID, income, pep);
+                System.out.println(printout);
+            }
+
+            // Close result set object
+            rs.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
     }
 }
