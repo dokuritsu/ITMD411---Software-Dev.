@@ -29,7 +29,7 @@ public class Dao {
             stmt = conn.connect().createStatement();
 
             // Query
-            String sql = "CREATE TABLE L_PERE_tab " +
+            String sql = "CREATE TABLE L_PERE_tab_test " +
                         "pid INTEGER not NULL AUTO_INCREMENT, " +
                         "id VARCHAR(10), " +
                         "income numeric(8,2)," +
@@ -66,7 +66,7 @@ public class Dao {
                 String pep = bankRecords.get(i).getPep();
                 
                 // Create sql based on object
-                sql = "INSERT INTO L_PERE_tab(`id`, `income`, `pep`) " +
+                sql = "INSERT INTO L_PERE_tab_test(`id`, `income`, `pep`) " +
                 "VALUES (' "+id+" ', ' "+income+" ', ' "+pep+" ' )";
          
                 stmt.executeUpdate(sql);
@@ -90,7 +90,7 @@ public class Dao {
             stmt = conn.connect().createStatement();
 
             // Create sql query based on the following fields: id, income & pep
-            String sql = "SELECT id,income,pep from L_PERE_tab order by pep desc";
+            String sql = "SELECT id,income,pep from L_PERE_tab_test order by pep desc";
 
             // Attach result to rs object
             rs = stmt.executeQuery(sql);
