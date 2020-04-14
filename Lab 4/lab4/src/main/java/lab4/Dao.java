@@ -31,7 +31,7 @@ public class Dao {
             System.out.println("Creating table in given database...");
 
             // Query
-            String sql = "CREATE TABLE L_PERE_tab_test3 " +
+            String sql = "CREATE TABLE L_PERE_tab " +
                         "(pid INTEGER not NULL AUTO_INCREMENT, " +
                         "id VARCHAR(10), " +
                         "income numeric(8,2)," +
@@ -58,7 +58,7 @@ public class Dao {
             //stmt = conn.connect().createStatement();
 
             // Create sql based on object
-            String sql = "INSERT INTO L_PERE_tab_test3(`id`, `income`, `pep`) " + "VALUES (?,?,?)";
+            String sql = "INSERT INTO L_PERE_tab(`id`, `income`, `pep`) " + "VALUES (?,?,?)";
 
             // Connect to database
             System.out.println("Connecting to database to insert records...");
@@ -105,7 +105,7 @@ public class Dao {
             
             // Create sql query based on the following fields: id, income & pep
             System.out.println("Retrieving records from database...");
-            String sql = "SELECT id,income,pep from L_PERE_tab_test3 order by pep desc";
+            String sql = "SELECT id,income,pep from L_PERE_tab order by pep desc";
 
             // Attach result to rs object
             rs = stmt.executeQuery(sql);

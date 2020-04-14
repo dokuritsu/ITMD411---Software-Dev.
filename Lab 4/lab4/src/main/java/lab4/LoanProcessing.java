@@ -24,10 +24,10 @@ public class LoanProcessing extends BankRecords{
         br.readData();
 
         // Create a table; Comment out after running once
-        //dao.createTables();
+        dao.createTables();
 
         // Insert the records
-        //dao.insertRecords(br.getbArrayList());
+        dao.insertRecords(br.getbArrayList());
 
         // Fill the result set object
         ResultSet rs = dao.retrieveRecords();
