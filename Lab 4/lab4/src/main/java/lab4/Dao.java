@@ -22,13 +22,13 @@ public class Dao {
         try {
             // Open a connection to db
             System.out.println("Connecting to a selected database to create a table...");
+            stmt = conn.connect().createStatement();
+
+            // Inform user of a successful connection
             System.out.println("Successfully connected to database...");
 
             // Execute given query
             System.out.println("Creating table in given database...");
-
-            stmt = conn.connect().createStatement();
-
 
             // Query
             String sql = "CREATE TABLE L_PERE_tab_test3 " +
@@ -55,16 +55,20 @@ public class Dao {
     public void insertRecords(ArrayList<BankRecords> bankRecords) {
         try {
             // Execute the query; Changing to PreparedStatement
-            System.out.println("Inserting records into the table...");
             //stmt = conn.connect().createStatement();
 
             // Create sql based on object
-            String sql = "INSERT INTO L_PERE_tab_test3(`id`, `income`, `pep`) " +
-            "VALUES (?,?,?)";
+            String sql = "INSERT INTO L_PERE_tab_test3(`id`, `income`, `pep`) " + "VALUES (?,?,?)";
 
+            // Connect to database
+            System.out.println("Connecting to database to insert records...");
             pstmt = conn.connect().prepareStatement(sql);
 
+            // Inform user of successful connection
+            System.out.println("Successfully connected to database...");
+
             // Loop through arraylist of objects to update table with records
+            System.out.println("Inserting records into the table...");
             for (int i = 0; i < bankRecords.size(); i++){
 
                 // Get the following information from each bank record: id, income, & pep
@@ -93,10 +97,14 @@ public class Dao {
 
         try {
             // Establish connection to database
-            System.out.println("Retrieving records from database...");
+            System.out.println("Connecting to database to receive records...");
             stmt = conn.connect().createStatement();
 
+            // Inform user of successful connection
+            System.out.println("Successfully connected to database...");
+            
             // Create sql query based on the following fields: id, income & pep
+            System.out.println("Retrieving records from database...");
             String sql = "SELECT id,income,pep from L_PERE_tab_test3 order by pep desc";
 
             // Attach result to rs object
@@ -111,6 +119,5 @@ public class Dao {
         }
     
         return rs;
-
     }
 }
