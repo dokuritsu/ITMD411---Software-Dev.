@@ -15,24 +15,15 @@ public class LoanProcessing extends BankRecords{
         br.readData();
 
         // Create a table; Comment out after running once
-        //dao.createTables();
+        dao.createTables();
 
         // Insert the records
-        //dao.insertRecords(br.getbArrayList());
+        dao.insertRecords(br.getbArrayList());
 
         // Fill the result set object
         ResultSet rs = dao.retrieveRecords();
 
-        // try{ 
-        //     ResultSetMetaData rsmd = rs.getMetaData();
-
-        //     int columnCount = rsmd.getColumnCount();
-        //     System.out.println(columnCount);
-        // } catch (SQLException se){
-        //     se.printStackTrace();
-        // }
-
-        System.out.println(" ID:\t\tINCOME:\t\t\t PEP:");
+        System.out.println("ID:\t\tINCOME:\t\t\t PEP:");
 
         // Extracting data from result set
         try {

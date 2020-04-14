@@ -31,7 +31,7 @@ public class Dao {
 
 
             // Query
-            String sql = "CREATE TABLE L_PERE_tab_test2 " +
+            String sql = "CREATE TABLE L_PERE_tab_test3 " +
                         "(pid INTEGER not NULL AUTO_INCREMENT, " +
                         "id VARCHAR(10), " +
                         "income numeric(8,2)," +
@@ -54,10 +54,15 @@ public class Dao {
     */
     public void insertRecords(ArrayList<BankRecords> bankRecords) {
         try {
-            // Execute the query
+            // Execute the query; Changing to PreparedStatement
             System.out.println("Inserting records into the table...");
             //stmt = conn.connect().createStatement();
-            String sql = null;
+
+            // Create sql based on object
+            String sql = "INSERT INTO L_PERE_tab_test3(`id`, `income`, `pep`) " +
+            "VALUES (?,?,?)";
+
+            pstmt = conn.connect().prepareStatement(sql);
 
             // Loop through arraylist of objects to update table with records
             for (int i = 0; i < bankRecords.size(); i++){
@@ -66,16 +71,12 @@ public class Dao {
                 String id = bankRecords.get(i).getId();
                 Double income = bankRecords.get(i).getIncome();
                 String pep = bankRecords.get(i).getPep();
-                
-                // Create sql based on object
-                sql = "INSERT INTO L_PERE_tab_test2(`id`, `income`, `pep`) " +
-                "VALUES (?,?,?)";
          
                 //stmt.executeUpdate(sql);
-                pstmt = conn.connect().prepareStatement(sql);
                 pstmt.setString(1, id);
                 pstmt.setDouble(2, income);
                 pstmt.setString(3, pep);
+                pstmt.executeUpdate();
             }
 
             System.out.println("Inserted records into the table...");
@@ -96,7 +97,7 @@ public class Dao {
             stmt = conn.connect().createStatement();
 
             // Create sql query based on the following fields: id, income & pep
-            String sql = "SELECT id,income,pep from L_PERE_tab_test2 order by pep desc";
+            String sql = "SELECT id,income,pep from L_PERE_tab_test3 order by pep desc";
 
             // Attach result to rs object
             rs = stmt.executeQuery(sql);
