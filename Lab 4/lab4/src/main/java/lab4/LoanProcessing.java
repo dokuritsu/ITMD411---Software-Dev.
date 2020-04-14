@@ -19,10 +19,6 @@ public class LoanProcessing extends BankRecords{
         // Object instantiations
         BankRecords br = new BankRecords();
         Dao dao = new Dao();
-        f = new JFrame();
-
-        // Set the Frame Title
-        f.setTitle("Loan Analysis");
 
         // Read data from csv file...
         br.readData();
@@ -65,6 +61,14 @@ public class LoanProcessing extends BankRecords{
     }
 
     public static void showTable(ArrayList<String[]> records) {
+        f = new JFrame();
+
+        // Set the Frame Title
+        f.setTitle("Loan Analysis Report");
+
+        // If frame closed
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         // Column names for table
         String [] columnNames = {"ID", "INCOME", "PEP"};
 
@@ -84,8 +88,8 @@ public class LoanProcessing extends BankRecords{
         JScrollPane sp = new JScrollPane(j);
         f.add(sp);
 
-        // Set the frame size
-        f.setSize(500, 200);
+        // Size the frame
+        f.pack();
 
         // Set the frame as visible
         f.setVisible(true);
