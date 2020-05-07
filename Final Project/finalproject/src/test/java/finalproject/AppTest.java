@@ -1,20 +1,18 @@
-package finalproject;
-
-import static org.junit.Assert.assertTrue;
+package lypereda;
 
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
+public class AppTest {
     /**
-     * Rigorous Test :-)
+     * Rigorous Test.
      */
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void testApp() {
+        assertTrue(true);
     }
 }

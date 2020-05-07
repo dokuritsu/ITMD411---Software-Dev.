@@ -24,10 +24,10 @@ public class LoanProcessing extends BankRecords{
         br.readData();
 
         // Create a table; Comment out after running once
-        dao.createTables();
+        //dao.createTables();
 
         // Insert the records
-        dao.insertRecords(br.getbArrayList());
+        //dao.insertRecords(br.getbArrayList());
 
         // Fill the result set object
         ResultSet rs = dao.retrieveRecords();
@@ -73,7 +73,7 @@ public class LoanProcessing extends BankRecords{
         String [] columnNames = {"ID", "INCOME", "PEP"};
 
         // Since we know the amount of records & # of columns...
-        String[][] data = new String[600][3];
+        String[][] data = new String[601][3];
 
         // Add the records into the 2D array
         for (int i = 0; i < records.size(); i++) {
