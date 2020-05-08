@@ -2,10 +2,14 @@ package main.java.finalproject;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -46,7 +50,7 @@ public class Tickets extends JFrame implements ActionListener{
             }
         }
 		createMenu();
-		// prepareGUI();
+		prepareGUI();
 
     }
 
@@ -98,6 +102,33 @@ public class Tickets extends JFrame implements ActionListener{
         }
 		mnuItemOpenTicket.addActionListener(this);
 		mnuItemViewTicket.addActionListener(this);
+    }
+
+    private void prepareGUI() {
+        // create JMenu bar
+		JMenuBar bar = new JMenuBar();
+        bar.add(mnuFile); // add main menu items in order, to JMenuBar
+        
+        // Check if user is admin
+        if (chkIfAdmin == true) {
+            bar.add(mnuAdmin);
+        }
+        bar.add(mnuTickets);
+
+		// add menu bar components to frame
+        setJMenuBar(bar);
+        
+        addWindowListener(new WindowAdapter() {
+			// define a window close operation
+			public void windowClosing(WindowEvent wE) {
+				System.exit(0);
+			}
+		});
+		// set frame options
+		setSize(400, 400);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		setLocationRelativeTo(null);
+		setVisible(true);
     }
 
     @Override
