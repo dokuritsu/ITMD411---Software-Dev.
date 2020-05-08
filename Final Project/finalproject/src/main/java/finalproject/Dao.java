@@ -19,8 +19,8 @@ public class Dao {
         try{
             connect = DriverManager.getConnection("jdbc:mysql://www.papademas.net:3307/tickets?autoReconnect=true&useSSL=false"
             + "&user=fp411&password=411");
-        } catch (SQLException e){
-            e.printStackTrace();
+        } catch (SQLException se){
+            se.printStackTrace();
         }
 
         return connect;
@@ -37,6 +37,8 @@ public class Dao {
         try{
             // Execute queries to create necessary tables
             statement = getConnection().createStatement();
+        } catch (SQLException se) {
+            se.printStackTrace();
         }
     }
     
