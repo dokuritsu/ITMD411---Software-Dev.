@@ -3,6 +3,9 @@ package main.java.finalproject;
 import java.awt.GridLayout; //useful for layouts
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -89,18 +92,49 @@ public class Login extends JFrame {
         add(btnExit);
         // add(lblStatus); // 4th row
 
-        // Add the action listeners
+        // Add action listener for Login button
         btn.addActionListener(new ActionListener() {
             int count = 0; // count agent
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Login button clicked");
+                boolean isAdmin = false;
+                count = count + 1;
+                int admin = 0;
+
+                // Verify credentials of user
+                String query = "SELECT * FROM lpereda_users_test WHERE uname = ? and upass = ?;";
+                try (PreparedStatement stmt = connect.getConnection().prepareStatement(query)) {
+                    stmt.setString(1, txtUname.getText());
+                    stmt.setString(2, txtPassword.getText());
+                    ResultSet rs = stmt.executeQuery();
+                    
+                    if(rs.next()){
+                        admin = rs.getInt("admin");
+                        if(admin == 1){
+                            isAdmin = true;
+                            System.out.println("Successfully logged in as a admin");
+                        } else {
+                            System.out.println("Successfully logged in as a user");
+                        }
+
+                        new Tickets(isAdmin);
+                        setVisible(false); // HIDE THE FRAME
+                        dispose(); // CLOSE OUT THE WINDOW
+                    } else {
+                        lblStatus.setText("Try again! " + (3 - count) + " / 3 attempts left");
+                        System.out.println("Try again! " + (3 - count) + " / 3 attempts left");
+                    }
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
 
             }
             
         });
 
+        // Add action listerer for Exit button
         btnExit.addActionListener(e -> System.exit(0));
         
         setVisible(true); // SHOW THE FRAME
