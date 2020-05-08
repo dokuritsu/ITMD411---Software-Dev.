@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -18,7 +19,7 @@ public class Tickets extends JFrame implements ActionListener{
 
     // For connecting to db
     Dao dao = new Dao(); // for CRUD operations
-    Boolean chkIfAdmin = null;
+    Boolean chkIfAdmin = false;
 
     // Main menu object items
 	private JMenu mnuFile = new JMenu("File");
@@ -133,7 +134,20 @@ public class Tickets extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        // implement actions for sub menu items
+		if (e.getSource() == mnuItemExit) {
+			System.exit(0);
+		} else if (e.getSource() == mnuItemOpenTicket) {
+            // get ticket information
+			String ticketName = JOptionPane.showInputDialog(null, "Enter your name");
+            String ticketDesc = JOptionPane.showInputDialog(null, "Enter a ticket description");
+            
+            // Check to make sure the ticket name & descr is not null
+            if (ticketName == null || ticketDesc == null || ticketName.equals("") || ticketDesc.equals("")){
+                JOptionPane.showMessageDialog(null, "Failed to open ticket: No valid name or description provided.");
+			    System.out.println("Failed to open ticket: No valid name or description provided.");
+            }
+        }
 
     }
     

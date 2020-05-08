@@ -152,4 +152,18 @@ public class Dao {
         }
         return results;
     }
+
+    // // View specific user's tickets if not admin
+    // public ResultSet viewUserRecords() {
+    //     ResultSet results = null;
+    //     try{
+    //         System.out.print("Connecting to db to read users tickets...");
+    //         statement = connect.createStatement();
+    //         results = statement.executeQuery("SELECT * FROM lpereda_tickets_test");
+    //         //connect.close();
+    //     } catch (SQLException se) {
+    //         se.printStackTrace();
+    //     }
+    //     return results;
+    // }
 }

@@ -101,7 +101,7 @@ public class Login extends JFrame {
                 System.out.println("Login button clicked");
                 boolean isAdmin = false;
                 count = count + 1;
-                int admin = 0;
+                int admin;
 
                 // Verify credentials of user
                 String query = "SELECT * FROM lpereda_users_test WHERE uname = ? and upass = ?;";
