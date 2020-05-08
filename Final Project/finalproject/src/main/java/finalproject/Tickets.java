@@ -61,7 +61,38 @@ public class Tickets extends JFrame implements ActionListener{
         // initialize sub menu item for File main menu
 		mnuItemRefresh = new JMenuItem("Refresh");
 		// add to File main menu item
-		mnuFile.add(mnuItemRefresh);
+        mnuFile.add(mnuItemRefresh);
+        
+        // Check to see if user is admin
+        if (chkIfAdmin == true){
+            // initialize first sub menu items for Admin main menu
+            mnuItemUpdate = new JMenuItem("Update Ticket");
+            // add to Admin main menu item
+            mnuAdmin.add(mnuItemUpdate);
+
+            // initialize second sub menu items for Admin main menu
+            mnuItemDelete = new JMenuItem("Delete Ticket");
+            // add to Admin main menu item
+            mnuAdmin.add(mnuItemDelete);
+        }
+
+        // initialize first sub menu item for Tickets main menu
+		mnuItemOpenTicket = new JMenuItem("Open Ticket");
+		// add to Ticket Main menu item
+		mnuTickets.add(mnuItemOpenTicket);
+
+		// initialize second sub menu item for Tickets main menu
+		mnuItemViewTicket = new JMenuItem("View Ticket");
+		// add to Ticket Main menu item
+		mnuTickets.add(mnuItemViewTicket);
+
+        // initialize any more desired sub menu items below
+        /* Add action listeners for each desired menu item *************/
+		mnuItemExit.addActionListener(this);
+		mnuItemUpdate.addActionListener(this);
+		mnuItemDelete.addActionListener(this);
+		mnuItemOpenTicket.addActionListener(this);
+		mnuItemViewTicket.addActionListener(this);
     }
 
     @Override
