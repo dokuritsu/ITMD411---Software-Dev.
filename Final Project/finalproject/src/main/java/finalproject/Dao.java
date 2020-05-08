@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class Dao {
@@ -103,7 +106,37 @@ public class Dao {
         } catch (SQLException se) {
             se.printStackTrace();
         }
-
     }
+
+    public int insertTicket(String ticketName, String ticketDesc) {
+        int id = 0;
+
+
+        try{
+            System.out.println("Connecting to db to insert ticket...");
+            statement = getConnection().createStatement();
+            
+            // Create timestamp of ticket
+            String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            
+            // Pass query
+            statement.executeUpdate("Insert into lpereda_tickets_test" + "(ticket_issuer, ticket_description) values(" + " '" 
+                + ticketName + "','" + ticketDesc + "','" + timeStamp  + "','" + "OPEN" + "')", Statement.RETURN_GENERATED_KEYS);
+
+            // Retrieve ticket ID # that was newly auto-genereated when inserted
+            ResultSet resultSet = null;
+            resultSet = statement.getGeneratedKeys();
+            if(resultSet.next()) {
+                // Return the first field in table
+                id = resultSet.getInt(1);
+            }
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+
+        return id;
+    }
+    
     
 }
