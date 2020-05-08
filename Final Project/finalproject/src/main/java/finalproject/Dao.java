@@ -71,6 +71,7 @@ public class Dao {
        
         // Begin reading from csv file
         try{
+            System.out.println("Reading from csv file...");
             br = new BufferedReader(new FileReader(new File("./userlist.csv")));
 
             String line;
@@ -79,6 +80,28 @@ public class Dao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // Set up connection to DB
+        try{
+            System.out.println("Connecting to db to insert users...");
+            statement = getConnection().createStatement();
+
+            // Loop through info to obtain values and insert into user table
+            for (List<String> rowData: array) {
+                sql = "insert into lpereda_users_test(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
+                + rowData.get(1) + "','" + rowData.get(2) + "');";
+            
+                statement.executeUpdate(sql);
+            }
+
+            // Close out connection
+            System.out.println("Inserted users from csv into user table...");
+            statement.close();
+            connect.close();
+
+        } catch (SQLException se) {
+            se.printStackTrace();
         }
 
     }
