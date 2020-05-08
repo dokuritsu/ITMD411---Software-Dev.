@@ -37,9 +37,22 @@ public class Dao {
         try{
             // Execute queries to create necessary tables
             statement = getConnection().createStatement();
+
+            // Create the tables
+            statement.executeUpdate(createTicketTB);
+            statement.executeUpdate(createUsersTB);
+
+            System.out.println("Successfully created Ticket & User tables...");
+
+            // Close the connection
+            statement.close();
+            connect.close();
+
         } catch (SQLException se) {
             se.printStackTrace();
         }
     }
+    
+
     
 }
