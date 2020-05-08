@@ -38,12 +38,21 @@ public class Login extends JFrame{
         // Set up a border
         ((JComponent) getContentPane()).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.white), BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder())));
 
+        JLabel title = new JLabel("IIT HELP", JLabel.RIGHT);
+        JLabel title1 = new JLabel("DESK LOGIN", JLabel.LEFT);
+        title.setBackground(Color.black);
+        title1.setBackground(Color.black);
+        
         // Set up controls
         JLabel lblUsername = new JLabel("Username", JLabel.LEFT);
 		JLabel lblPassword = new JLabel("Password", JLabel.LEFT);
 		JLabel lblStatus = new JLabel(" ", JLabel.CENTER);
         // JLabel lblSpacer = new JLabel(" ", JLabel.CENTER);
-        
+
+        // Add color
+        lblUsername.setForeground(Color.white);
+        lblPassword.setForeground(Color.white);
+
         // Area for username & password
         JTextField txtUname = new JTextField(10);
         JPasswordField txtPassword = new JPasswordField();
