@@ -1,11 +1,14 @@
 package main.java.finalproject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Dao {
@@ -68,7 +71,12 @@ public class Dao {
        
         // Begin reading from csv file
         try{
+            br = new BufferedReader(new FileReader(new File("./userlist.csv")));
 
+            String line;
+            while ((line = br.readLine()) != null) {
+                info.add(Arrays.asList(line.split(",")));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
