@@ -146,7 +146,7 @@ public class Dao {
             System.out.print("Connecting to db to read the tickets...");
             statement = connect.createStatement();
             results = statement.executeQuery("SELECT * FROM lpereda_tickets_test");
-            connect.close();
+            //connect.close();
         } catch (SQLException se) {
             se.printStackTrace();
         }
