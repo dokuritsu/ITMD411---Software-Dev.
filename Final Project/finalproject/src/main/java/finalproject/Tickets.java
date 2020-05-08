@@ -88,9 +88,14 @@ public class Tickets extends JFrame implements ActionListener{
 
         // initialize any more desired sub menu items below
         /* Add action listeners for each desired menu item *************/
-		mnuItemExit.addActionListener(this);
-		mnuItemUpdate.addActionListener(this);
-		mnuItemDelete.addActionListener(this);
+        mnuItemExit.addActionListener(this);
+        mnuItemRefresh.addActionListener(this);
+
+        // Check if user is asmin
+        if(chkIfAdmin == true){
+            mnuItemUpdate.addActionListener(this);
+		    mnuItemDelete.addActionListener(this);
+        }
 		mnuItemOpenTicket.addActionListener(this);
 		mnuItemViewTicket.addActionListener(this);
     }
