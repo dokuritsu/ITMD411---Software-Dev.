@@ -91,7 +91,7 @@ public class Dao {
             statement = getConnection().createStatement();
 
             // Loop through info to obtain values and insert into user table
-            for (List<String> rowData: array) {
+            for (List<String> rowData: info) {
                 sql = "insert into lpereda_users_test(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
                 + rowData.get(1) + "','" + rowData.get(2) + "');";
             
@@ -101,16 +101,15 @@ public class Dao {
             // Close out connection
             System.out.println("Inserted users from csv into user table...");
             statement.close();
-            connect.close();
 
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
+        } catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
     }
 
+    // Insert ticket
     public int insertTicket(String ticketName, String ticketDesc) {
         int id = 0;
-
 
         try{
             System.out.println("Connecting to db to insert ticket...");
@@ -122,6 +121,8 @@ public class Dao {
             // Pass query
             statement.executeUpdate("Insert into lpereda_tickets_test" + "(ticket_issuer, ticket_description) values(" + " '" 
                 + ticketName + "','" + ticketDesc + "','" + timeStamp  + "','" + "OPEN" + "')", Statement.RETURN_GENERATED_KEYS);
+
+            System.out.println("Inserted ticket into ticket table...");
 
             // Retrieve ticket ID # that was newly auto-genereated when inserted
             ResultSet resultSet = null;
@@ -138,5 +139,17 @@ public class Dao {
         return id;
     }
     
-    
+    // View tickets
+    public ResultSet readRecords() {
+        ResultSet results = null;
+        try{
+            System.out.print("Connecting to db to read the tickets...");
+            statement = connect.createStatement();
+            results = statement.executeQuery("SELECT * FROM lpereda_tickets_test");
+            connect.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return results;
+    }
 }
