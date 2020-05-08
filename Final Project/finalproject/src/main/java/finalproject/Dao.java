@@ -1,9 +1,12 @@
 package main.java.finalproject;
 
+import java.io.BufferedReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dao {
     // Instance fields
@@ -51,8 +54,25 @@ public class Dao {
         } catch (SQLException se) {
             se.printStackTrace();
         }
-    }
-    
 
+        // Add users from the given csv file
+        addUsers();
+    }
+
+    // Add users from the given csv file
+    private void addUsers() {
+        String sql;
+        Statement statement;
+        BufferedReader br;
+        List<List<String>> info = new ArrayList<>();
+       
+        // Begin reading from csv file
+        try{
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     
 }
