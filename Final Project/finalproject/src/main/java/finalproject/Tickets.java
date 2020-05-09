@@ -209,9 +209,9 @@ public class Tickets extends JFrame implements ActionListener{
             String status = JOptionPane.showInputDialog(null, "Please provide the current status of the ticket");
 
             // Check that the ticket id is not null
-            if (ticketID == null || ticketID.equals("")){
+            if (ticketID == null || ticketID.equals("") || ticketDesc == null || ticketDesc.equals("") || status == null || status.equals("")){
                 JOptionPane.showMessageDialog(null, "Failed to update ticket: Empty or invalid ticketID");
-                System.out.println("Failed to update ticket: Empty or invalid ticketID");
+                System.out.println("Failed to update ticket: Empty or invalid ticketID, ticketDesc, or status");
             } else {
                 // Insert new ticket info into database
                 int tID = Integer.parseInt(ticketID);

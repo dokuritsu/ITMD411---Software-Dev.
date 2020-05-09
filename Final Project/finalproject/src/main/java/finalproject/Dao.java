@@ -175,4 +175,40 @@ public class Dao {
         System.out.println("Retrieved user's tickets...");
         return results;
     }
+
+    // Update the specific ticket
+    public void updateTicket(String ticketID, String ticketDesc, String status) {
+        // Need to update ticket description first
+        ResultSet results = null;
+        String curr_desc = null;
+        try{
+            System.out.println("Connecting to database to obtain current ticket description...");
+            String sql = "select ticket_description from lpereda_tickets_test1 where ticket_id=?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, ticketID);
+            results = ps.executeQuery();
+
+            System.out.println("Successfully obtained current ticket description...");
+
+            while(results.next()){
+                curr_desc = results.getString("ticket_description");
+            }
+
+            String updatedDesc = curr_desc + "\nUpdate: " + ticketDesc;
+
+            // Update the ticket
+            System.out.println("Connecting to database to update ticket...");
+            String sql2 = "update lpereda_tickets_test1 set ticket_description=?, ticket_status=? where ticket_id=?";
+            ps = connect.prepareStatement(sql2);
+            ps.setString(1, updatedDesc);
+            ps.setString(2, status);
+            ps.setString(3, ticketID);
+            ps.executeUpdate();
+            ps.close();
+
+            System.out.println("Successfully connected to database & updated ticket...");
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
 }
