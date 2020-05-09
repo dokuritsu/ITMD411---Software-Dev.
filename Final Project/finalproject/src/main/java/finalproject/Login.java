@@ -104,7 +104,7 @@ public class Login extends JFrame {
                 int admin;
 
                 // Verify credentials of user
-                String query = "SELECT * FROM lpereda_users_test WHERE uname = ? and upass = ?;";
+                String query = "SELECT * FROM lpereda_users_test2 WHERE uname = ? and upass = ?;";
                 try (PreparedStatement stmt = connect.getConnection().prepareStatement(query)) {
                     String user = txtUname.getText();
                     stmt.setString(1, user);

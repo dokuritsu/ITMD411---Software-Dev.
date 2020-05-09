@@ -52,7 +52,7 @@ public class Tickets extends JFrame implements ActionListener{
                 jt.getTableHeader().setForeground(Color.white);
 
 				JScrollPane sp = new JScrollPane(jt);
-				add(sp);
+                add(sp);
                 setVisible(true); // refreshes or repaints frame on screen
                 chkIfAdmin = true;
             } catch (SQLException se) {
@@ -197,6 +197,7 @@ public class Tickets extends JFrame implements ActionListener{
                     
                     JScrollPane sp = new JScrollPane(jt);
                     add(sp);
+                    
                     setVisible(true); // refreshes or repaints frame on screen
                 } else {
                     JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
@@ -232,8 +233,44 @@ public class Tickets extends JFrame implements ActionListener{
                 int tID = Integer.parseInt(ticketID);
                 dao.updateTicket(ticketID, ticketDesc, status);
 
+                // Inform user if successful or not
+                if (tID != 0){
+                    JOptionPane.showMessageDialog(null, "Ticket ID: " + tID + " created successfully!!!");
+                    System.out.println("Ticket ID: " + tID + " created successfully!!!");
+
+                    try{
+                        JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+                        jt.setBounds(30, 40, 200, 400);
+
+                        // Add some color
+                        jt.setBackground(c);
+                        jt.setForeground(Color.white);
+                        jt.getTableHeader().setBackground(c2);
+                        jt.getTableHeader().setForeground(Color.white);
+                        
+                        JScrollPane sp = new JScrollPane(jt);
+                        add(sp);
+                        setVisible(true); // refreshes or repaints frame on screen
+                    } catch (SQLException se) {
+                        
+                    }
+                }
+
             }
 
+        } else if (e.getSource() == mnuItemDelete) {
+            // Note: Delete feature only for admins
+
+            // Get ticket ID
+            String ticketID = JOptionPane.showInputDialog(null, "Please provide a ticket ID");
+
+            // Check to make sure the ticketID is not empty or null
+            if (ticketID == null || ticketID.equals("")){
+                JOptionPane.showMessageDialog(null, "Failed to delete ticket: Invalid or empty ticket ID");
+                System.out.println("Failed to delete ticket: Invalid or empty ticket ID");
+            } else {
+                
+            }
         }
 
     }

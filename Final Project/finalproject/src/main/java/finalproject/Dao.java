@@ -41,8 +41,8 @@ public class Dao {
         // Necessary variables for SQL Query
         System.out.println("Connecting to a selected database to create Ticket & User tables...");
 
-        final String createTicketTB = "CREATE TABLE lpereda_tickets_test1(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), ticket_status VARCHAR(10), start_date VARCHAR(10), end_data VARCHAR(10))";
-        final String createUsersTB = "CREATE TABLE lpereda_users_test(uid INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(30), upass VARCHAR(30), admin int)";
+        final String createTicketTB = "CREATE TABLE lpereda_tickets_test2(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), ticket_status VARCHAR(10), start_date VARCHAR(20), end_date VARCHAR(20))";
+        final String createUsersTB = "CREATE TABLE lpereda_users_test2(uid INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(30), upass VARCHAR(30), admin int)";
 
         try{
             // Execute queries to create necessary tables
@@ -93,7 +93,7 @@ public class Dao {
 
             // Loop through info to obtain values and insert into user table
             for (List<String> rowData: info) {
-                sql = "insert into lpereda_users_test(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
+                sql = "insert into lpereda_users_test2(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
                 + rowData.get(1) + "','" + rowData.get(2) + "');";
             
                 statement.executeUpdate(sql);
@@ -117,10 +117,10 @@ public class Dao {
             statement = getConnection().createStatement();
             
             // Create timestamp of ticket
-            String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            String timeStamp = new SimpleDateFormat("yyyy/MM/dd, HH:mm:ss").format(Calendar.getInstance().getTime());
             
             // Pass query
-            statement.executeUpdate("Insert into lpereda_tickets_test1" + "(ticket_issuer, ticket_description, ticket_status, start_date) values(" + " '" 
+            statement.executeUpdate("Insert into lpereda_tickets_test2" + "(ticket_issuer, ticket_description, ticket_status, start_date) values(" + " '" 
                 + ticketName + "','" + ticketDesc + "','" + "OPEN"  + "','" + timeStamp + "')", Statement.RETURN_GENERATED_KEYS);
 
             System.out.println("Inserted ticket into ticket table...");
@@ -146,7 +146,7 @@ public class Dao {
         try{
             System.out.println("Connecting to db to read the tickets...");
             statement = connect.createStatement();
-            results = statement.executeQuery("SELECT * FROM lpereda_tickets_test1");
+            results = statement.executeQuery("SELECT * FROM lpereda_tickets_test2");
             //connect.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -161,7 +161,7 @@ public class Dao {
             System.out.println("Connecting to db to read users tickets...");
 
             // SQL Query
-            String sql = "select * from lpereda_tickets_test1 where ticket_issuer=?";
+            String sql = "select * from lpereda_tickets_test2 where ticket_issuer=?";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, ticketIssuer);
             results = ps.executeQuery();
@@ -183,7 +183,7 @@ public class Dao {
         String curr_desc = null;
         try{
             System.out.println("Connecting to database to obtain current ticket description...");
-            String sql = "select ticket_description from lpereda_tickets_test1 where ticket_id=?";
+            String sql = "select ticket_description from lpereda_tickets_test2 where ticket_id=?";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, ticketID);
             results = ps.executeQuery();
@@ -196,16 +196,32 @@ public class Dao {
 
             String updatedDesc = curr_desc + "\nUpdate: " + ticketDesc;
 
-            // Update the ticket
-            System.out.println("Connecting to database to update ticket...");
-            String sql2 = "update lpereda_tickets_test1 set ticket_description=?, ticket_status=? where ticket_id=?";
-            ps = connect.prepareStatement(sql2);
-            ps.setString(1, updatedDesc);
-            ps.setString(2, status);
-            ps.setString(3, ticketID);
-            ps.executeUpdate();
+            // Check the status of ticket
+            String timeStamp = null;
+            if(status.equalsIgnoreCase("CLOSED")){
+                // We need to get a timestamp to add to end_date
+                // Create timestamp of ticket
+                timeStamp = new SimpleDateFormat("yyyy/MM/dd, HH:mm:ss").format(Calendar.getInstance().getTime());
+                // Update the ticket
+                System.out.println("Connecting to database to update ticket...");
+                String sql2 = "update lpereda_tickets_test2 set ticket_description=?, ticket_status=?, end_date=? where ticket_id=?";
+                ps = connect.prepareStatement(sql2);
+                ps.setString(1, updatedDesc);
+                ps.setString(2, status);
+                ps.setString(3, timeStamp);
+                ps.setString(4, ticketID);
+                ps.executeUpdate();
+            } else {
+                // Update the ticket
+                System.out.println("Connecting to database to update ticket...");
+                String sql2 = "update lpereda_tickets_test2 set ticket_description=?, ticket_status=? where ticket_id=?";
+                ps = connect.prepareStatement(sql2);
+                ps.setString(1, updatedDesc);
+                ps.setString(2, status);
+                ps.setString(3, ticketID);
+                ps.executeUpdate();
+            }
             ps.close();
-
             System.out.println("Successfully connected to database & updated ticket...");
         } catch (SQLException se) {
             se.printStackTrace();
