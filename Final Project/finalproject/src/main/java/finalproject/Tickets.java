@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Tickets extends JFrame implements ActionListener{
 
@@ -23,6 +24,7 @@ public class Tickets extends JFrame implements ActionListener{
     String user = "";
     Color c = new Color(147, 112, 219);
     Color c2 = new Color(75, 0, 130);
+    JTable jt = null;
 
     // Main menu object items
 	private JMenu mnuFile = new JMenu("File");
@@ -42,7 +44,7 @@ public class Tickets extends JFrame implements ActionListener{
         this.user = user;
         if (chkIfAdmin != isAdmin){
             try{
-				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+				jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
                 jt.setBounds(30, 40, 200, 400);
 
                 // Add some color
@@ -180,6 +182,23 @@ public class Tickets extends JFrame implements ActionListener{
                 if (id != 0) {
                     System.out.println("Ticket ID : " + id + " created successfully!!!");
                     JOptionPane.showMessageDialog(null, "Ticket id: " + id + " created");
+
+                    try{
+                        JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(this.user)));
+                        jt.setBounds(30, 40, 200, 400);
+
+                        // Add some color
+                        jt.setBackground(c);
+                        jt.setForeground(Color.white);
+                        jt.getTableHeader().setBackground(c2);
+                        jt.getTableHeader().setForeground(Color.white);
+                        
+                        JScrollPane sp = new JScrollPane(jt);
+                        add(sp);
+                        setVisible(true); // refreshes or repaints frame on screen
+                    } catch (SQLException se) {
+                        se.printStackTrace();
+                    }
                 } else
                     System.out.println("Ticket cannot be created!!!");
             }
@@ -235,11 +254,15 @@ public class Tickets extends JFrame implements ActionListener{
 
                 // Inform user if successful or not
                 if (tID != 0){
-                    JOptionPane.showMessageDialog(null, "Ticket ID: " + tID + " created successfully!!!");
-                    System.out.println("Ticket ID: " + tID + " created successfully!!!");
+                    JOptionPane.showMessageDialog(null, "Ticket ID: " + tID + " updated successfully!!!");
+                    System.out.println("Ticket ID: " + tID + " updated successfully!!!");
 
                     try{
-                        JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+                        setVisible(false);
+                        DefaultTableModel tableModel = new DefaultTableModel();
+                        tableModel = ticketsJTable.buildTableModel(dao.readTickets());
+                        tableModel.fireTableDataChanged();
+                        jt = new JTable(tableModel);
                         jt.setBounds(30, 40, 200, 400);
 
                         // Add some color
@@ -269,7 +292,21 @@ public class Tickets extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Failed to delete ticket: Invalid or empty ticket ID");
                 System.out.println("Failed to delete ticket: Invalid or empty ticket ID");
             } else {
-                
+                int tID = Integer.parseInt(ticketID);
+
+                // Verify that the admin wants to delete ticket
+                int verify = JOptionPane.showConfirmDialog(null, "Are you sure you wish to delete ticket " + tID + "?", "Warning!", JOptionPane.YES_NO_OPTION);
+                if(verify == JOptionPane.YES_OPTION){
+                    int result = dao.deleteTicket(ticketID);
+                    if (result != 0){
+                        JOptionPane.showMessageDialog(null, "Successfully deleted ticket ID: " + tID + "!");
+                        System.out.println("Successfully deleted ticket ID: " + tID + "!");
+                    } else {
+                        System.out.println("Ticket cannot be deleted!!!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ticket ID: " + tID + " gets to live another day...");
+                }
             }
         }
 

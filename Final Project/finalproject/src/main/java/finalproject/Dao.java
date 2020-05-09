@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Dao {
     // Instance fields
     static Connection connect = null;
@@ -165,8 +167,6 @@ public class Dao {
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, ticketIssuer);
             results = ps.executeQuery();
-            // statement = connect.createStatement();
-            // results = statement.executeQuery("SELECT * FROM `lpereda_tickets_test1` WHERE `ticket_issuer`= ?");
             //connect.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -193,6 +193,7 @@ public class Dao {
             while(results.next()){
                 curr_desc = results.getString("ticket_description");
             }
+            ps.close();
 
             String updatedDesc = curr_desc + "\nUpdate: " + ticketDesc;
 
@@ -205,26 +206,43 @@ public class Dao {
                 // Update the ticket
                 System.out.println("Connecting to database to update ticket...");
                 String sql2 = "update lpereda_tickets_test2 set ticket_description=?, ticket_status=?, end_date=? where ticket_id=?";
-                ps = connect.prepareStatement(sql2);
-                ps.setString(1, updatedDesc);
-                ps.setString(2, status);
-                ps.setString(3, timeStamp);
-                ps.setString(4, ticketID);
-                ps.executeUpdate();
+                PreparedStatement ps2 = connect.prepareStatement(sql2);
+                ps2.setString(1, updatedDesc);
+                ps2.setString(2, status);
+                ps2.setString(3, timeStamp);
+                ps2.setString(4, ticketID);
+                ps2.executeUpdate();
+                ps2.close();
             } else {
                 // Update the ticket
                 System.out.println("Connecting to database to update ticket...");
                 String sql2 = "update lpereda_tickets_test2 set ticket_description=?, ticket_status=? where ticket_id=?";
-                ps = connect.prepareStatement(sql2);
-                ps.setString(1, updatedDesc);
-                ps.setString(2, status);
-                ps.setString(3, ticketID);
-                ps.executeUpdate();
+                PreparedStatement ps2 = connect.prepareStatement(sql2);
+                ps2.setString(1, updatedDesc);
+                ps2.setString(2, status);
+                ps2.setString(3, ticketID);
+                ps2.executeUpdate();
+                ps2.close();
             }
             ps.close();
             System.out.println("Successfully connected to database & updated ticket...");
         } catch (SQLException se) {
             se.printStackTrace();
         }
+    }
+
+    // Delete the specific ticket
+    public int deleteTicket(String ticketID) {
+        int result = 0;
+        try{
+            System.out.println("Connecting to database to delete ticket...");
+            String sql = "delete from lpereda_tickets_test2 where ticket_id=?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, ticketID);
+            result = ps.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return result;
     }
 }

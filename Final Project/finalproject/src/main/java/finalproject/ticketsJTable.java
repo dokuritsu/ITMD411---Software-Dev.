@@ -32,6 +32,10 @@ public class ticketsJTable {
 			}
 			data.add(vector);
 		}
+		rs.last();
+		int numberOfRows  = rs.getRow();
+		System.out.println("Database has " + numberOfRows + " tickets..");
+		
 		// return data/col.names for JTable
 		return new DefaultTableModel(data, columnNames); 
 
