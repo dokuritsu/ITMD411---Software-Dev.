@@ -35,17 +35,29 @@ public class Tickets extends JFrame implements ActionListener{
     JMenuItem mnuItemViewTicket;
 
     // Limit what is shown depending on who logs in
-    public Tickets(Boolean isAdmin) {
+    public Tickets(Boolean isAdmin, String user) {
         if (chkIfAdmin != isAdmin){
             try{
                 // Use JTable built in functionality to build a table model and
 				// display the table model off your result set!!!
-				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readRecords()));
+				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
 				jt.setBounds(30, 40, 200, 400);
 				JScrollPane sp = new JScrollPane(jt);
 				add(sp);
                 setVisible(true); // refreshes or repaints frame on screen
                 chkIfAdmin = true;
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        } else {
+            try {
+                // Use JTable built in functionality to build a table model and
+				// display the table model off your result set!!!
+				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
+				jt.setBounds(30, 40, 200, 400);
+				JScrollPane sp = new JScrollPane(jt);
+				add(sp);
+                setVisible(true); // refreshes or repaints frame on screen
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -139,14 +151,26 @@ public class Tickets extends JFrame implements ActionListener{
 			System.exit(0);
 		} else if (e.getSource() == mnuItemOpenTicket) {
             // get ticket information
-			String ticketName = JOptionPane.showInputDialog(null, "Enter your name");
+			String ticketName = JOptionPane.showInputDialog(null, "Enter your Username");
             String ticketDesc = JOptionPane.showInputDialog(null, "Enter a ticket description");
             
             // Check to make sure the ticket name & descr is not null
             if (ticketName == null || ticketDesc == null || ticketName.equals("") || ticketDesc.equals("")){
                 JOptionPane.showMessageDialog(null, "Failed to open ticket: No valid name or description provided.");
 			    System.out.println("Failed to open ticket: No valid name or description provided.");
+            } else {
+                // Insert ticket info to database
+                int id = dao.insertTicket(ticketName, ticketDesc);
+
+                // display results if successful or not to console / dialog box
+                if (id != 0) {
+                    System.out.println("Ticket ID : " + id + " created successfully!!!");
+                    JOptionPane.showMessageDialog(null, "Ticket id: " + id + " created");
+                } else
+                    System.out.println("Ticket cannot be created!!!");
             }
+        } else if (e.getSource() == mnuItemViewTicket){
+
         }
 
     }

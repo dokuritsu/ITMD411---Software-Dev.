@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,7 +41,7 @@ public class Dao {
         // Necessary variables for SQL Query
         System.out.println("Connecting to a selected database to create Ticket & User tables...");
 
-        final String createTicketTB = "CREATE TABLE lpereda_tickets_test(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), start_date VARCHAR(10), end_data VARCHAR(10))";
+        final String createTicketTB = "CREATE TABLE lpereda_tickets_test1(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), ticket_status VARCHAR(10), start_date VARCHAR(10), end_data VARCHAR(10))";
         final String createUsersTB = "CREATE TABLE lpereda_users_test(uid INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(30), upass VARCHAR(30), admin int)";
 
         try{
@@ -119,8 +120,8 @@ public class Dao {
             String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
             
             // Pass query
-            statement.executeUpdate("Insert into lpereda_tickets_test" + "(ticket_issuer, ticket_description) values(" + " '" 
-                + ticketName + "','" + ticketDesc + "','" + timeStamp  + "','" + "OPEN" + "')", Statement.RETURN_GENERATED_KEYS);
+            statement.executeUpdate("Insert into lpereda_tickets_test1" + "(ticket_issuer, ticket_description, ticket_status, start_date) values(" + " '" 
+                + ticketName + "','" + ticketDesc + "','" + "OPEN"  + "','" + timeStamp + "')", Statement.RETURN_GENERATED_KEYS);
 
             System.out.println("Inserted ticket into ticket table...");
 
@@ -140,12 +141,12 @@ public class Dao {
     }
     
     // View tickets
-    public ResultSet readRecords() {
+    public ResultSet readTickets() {
         ResultSet results = null;
         try{
             System.out.print("Connecting to db to read the tickets...");
             statement = connect.createStatement();
-            results = statement.executeQuery("SELECT * FROM lpereda_tickets_test");
+            results = statement.executeQuery("SELECT * FROM lpereda_tickets_test1");
             //connect.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -153,17 +154,23 @@ public class Dao {
         return results;
     }
 
-    // // View specific user's tickets if not admin
-    // public ResultSet viewUserRecords() {
-    //     ResultSet results = null;
-    //     try{
-    //         System.out.print("Connecting to db to read users tickets...");
-    //         statement = connect.createStatement();
-    //         results = statement.executeQuery("SELECT * FROM lpereda_tickets_test");
-    //         //connect.close();
-    //     } catch (SQLException se) {
-    //         se.printStackTrace();
-    //     }
-    //     return results;
-    // }
+    // View specific user's tickets if not admin
+    public ResultSet viewUserTickets(String ticketIssuer) {
+        ResultSet results = null;
+        try{
+            System.out.print("Connecting to db to read users tickets...");
+
+            // SQL Query
+            String sql = "select * from lpereda_tickets_test1 where ticket_issuer=?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, ticketIssuer);
+            results = ps.executeQuery();
+            // statement = connect.createStatement();
+            // results = statement.executeQuery("SELECT * FROM `lpereda_tickets_test1` WHERE `ticket_issuer`= ?");
+            //connect.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return results;
+    }
 }

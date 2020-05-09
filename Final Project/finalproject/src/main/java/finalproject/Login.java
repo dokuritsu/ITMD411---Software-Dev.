@@ -29,7 +29,7 @@ public class Login extends JFrame {
 
         // Create the tables in the database (Remove later on)
         connect = new Dao();
-        // connect.createTables();
+        //connect.createTables();
 
         // Set up some basics
         setSize(400, 210);
@@ -106,7 +106,8 @@ public class Login extends JFrame {
                 // Verify credentials of user
                 String query = "SELECT * FROM lpereda_users_test WHERE uname = ? and upass = ?;";
                 try (PreparedStatement stmt = connect.getConnection().prepareStatement(query)) {
-                    stmt.setString(1, txtUname.getText());
+                    String user = txtUname.getText();
+                    stmt.setString(1, user);
                     stmt.setString(2, txtPassword.getText());
                     ResultSet rs = stmt.executeQuery();
                     
@@ -119,7 +120,7 @@ public class Login extends JFrame {
                             System.out.println("Successfully logged in as a user");
                         }
 
-                        new Tickets(isAdmin);
+                        new Tickets(isAdmin, user);
                         setVisible(false); // HIDE THE FRAME
                         dispose(); // CLOSE OUT THE WINDOW
                     } else {
