@@ -183,7 +183,7 @@ public class Tickets extends JFrame implements ActionListener{
                 } else
                     System.out.println("Ticket cannot be created!!!");
             }
-        } else if (e.getSource() == mnuItemViewTicket){
+        } else if (e.getSource() == mnuItemViewTicket || e.getSource() == mnuItemRefresh){
             try {
 				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
                 jt.setBounds(30, 40, 200, 400);
@@ -200,6 +200,25 @@ public class Tickets extends JFrame implements ActionListener{
             } catch (SQLException se) {
                 se.printStackTrace();
             }
+        } else if (e.getSource() == mnuItemUpdate) {
+            // Note: Update feature is only for admins
+
+            // Provide ticket info
+            String ticketID = JOptionPane.showInputDialog(null, "Please provide the ticket ID");
+            String ticketDesc = JOptionPane.showInputDialog(null, "Please provide reason for update");
+            String status = JOptionPane.showInputDialog(null, "Please provide the current status of the ticket");
+
+            // Check that the ticket id is not null
+            if (ticketID == null || ticketID.equals("")){
+                JOptionPane.showMessageDialog(null, "Failed to update ticket: Empty or invalid ticketID");
+                System.out.println("Failed to update ticket: Empty or invalid ticketID");
+            } else {
+                // Insert new ticket info into database
+                int tID = Integer.parseInt(ticketID);
+                dao.updateTicket(ticketID, ticketDesc, status);
+
+            }
+
         }
 
     }
