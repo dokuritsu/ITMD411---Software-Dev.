@@ -185,18 +185,33 @@ public class Tickets extends JFrame implements ActionListener{
             }
         } else if (e.getSource() == mnuItemViewTicket || e.getSource() == mnuItemRefresh){
             try {
-				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
-                jt.setBounds(30, 40, 200, 400);
+                if (chkIfAdmin == true){
+                    JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+                    jt.setBounds(30, 40, 200, 400);
 
-                // Add some color
-                jt.setBackground(c);
-                jt.setForeground(Color.white);
-                jt.getTableHeader().setBackground(c2);
-                jt.getTableHeader().setForeground(Color.white);
-                
-				JScrollPane sp = new JScrollPane(jt);
-				add(sp);
-                setVisible(true); // refreshes or repaints frame on screen
+                    // Add some color
+                    jt.setBackground(c);
+                    jt.setForeground(Color.white);
+                    jt.getTableHeader().setBackground(c2);
+                    jt.getTableHeader().setForeground(Color.white);
+                    
+                    JScrollPane sp = new JScrollPane(jt);
+                    add(sp);
+                    setVisible(true); // refreshes or repaints frame on screen
+                } else {
+                    JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
+                    jt.setBounds(30, 40, 200, 400);
+
+                    // Add some color
+                    jt.setBackground(c);
+                    jt.setForeground(Color.white);
+                    jt.getTableHeader().setBackground(c2);
+                    jt.getTableHeader().setForeground(Color.white);
+                    
+                    JScrollPane sp = new JScrollPane(jt);
+                    add(sp);
+                    setVisible(true); // refreshes or repaints frame on screen
+                }
             } catch (SQLException se) {
                 se.printStackTrace();
             }
