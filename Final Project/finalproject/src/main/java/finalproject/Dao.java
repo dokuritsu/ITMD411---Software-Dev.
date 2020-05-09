@@ -144,7 +144,7 @@ public class Dao {
     public ResultSet readTickets() {
         ResultSet results = null;
         try{
-            System.out.print("Connecting to db to read the tickets...");
+            System.out.println("Connecting to db to read the tickets...");
             statement = connect.createStatement();
             results = statement.executeQuery("SELECT * FROM lpereda_tickets_test1");
             //connect.close();
@@ -158,7 +158,7 @@ public class Dao {
     public ResultSet viewUserTickets(String ticketIssuer) {
         ResultSet results = null;
         try{
-            System.out.print("Connecting to db to read users tickets...");
+            System.out.println("Connecting to db to read users tickets...");
 
             // SQL Query
             String sql = "select * from lpereda_tickets_test1 where ticket_issuer=?";
@@ -171,6 +171,8 @@ public class Dao {
         } catch (SQLException se) {
             se.printStackTrace();
         }
+
+        System.out.println("Retrieved user's tickets...");
         return results;
     }
 }

@@ -20,6 +20,9 @@ public class Tickets extends JFrame implements ActionListener{
     // For connecting to db
     Dao dao = new Dao(); // for CRUD operations
     Boolean chkIfAdmin = false;
+    String user = "";
+    Color c = new Color(147, 112, 219);
+    Color c2 = new Color(75, 0, 130);
 
     // Main menu object items
 	private JMenu mnuFile = new JMenu("File");
@@ -36,12 +39,18 @@ public class Tickets extends JFrame implements ActionListener{
 
     // Limit what is shown depending on who logs in
     public Tickets(Boolean isAdmin, String user) {
+        this.user = user;
         if (chkIfAdmin != isAdmin){
             try{
-                // Use JTable built in functionality to build a table model and
-				// display the table model off your result set!!!
 				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
-				jt.setBounds(30, 40, 200, 400);
+                jt.setBounds(30, 40, 200, 400);
+
+                // Add some color
+                jt.setBackground(c);
+                jt.setForeground(Color.white);
+                jt.getTableHeader().setBackground(c2);
+                jt.getTableHeader().setForeground(Color.white);
+
 				JScrollPane sp = new JScrollPane(jt);
 				add(sp);
                 setVisible(true); // refreshes or repaints frame on screen
@@ -51,10 +60,15 @@ public class Tickets extends JFrame implements ActionListener{
             }
         } else {
             try {
-                // Use JTable built in functionality to build a table model and
-				// display the table model off your result set!!!
 				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
-				jt.setBounds(30, 40, 200, 400);
+                jt.setBounds(30, 40, 200, 400);
+
+                // Add some color
+                jt.setBackground(c);
+                jt.setForeground(Color.white);
+                jt.getTableHeader().setBackground(c2);
+                jt.getTableHeader().setForeground(Color.white);
+
 				JScrollPane sp = new JScrollPane(jt);
 				add(sp);
                 setVisible(true); // refreshes or repaints frame on screen
@@ -170,7 +184,22 @@ public class Tickets extends JFrame implements ActionListener{
                     System.out.println("Ticket cannot be created!!!");
             }
         } else if (e.getSource() == mnuItemViewTicket){
+            try {
+				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.viewUserTickets(user)));
+                jt.setBounds(30, 40, 200, 400);
 
+                // Add some color
+                jt.setBackground(c);
+                jt.setForeground(Color.white);
+                jt.getTableHeader().setBackground(c2);
+                jt.getTableHeader().setForeground(Color.white);
+                
+				JScrollPane sp = new JScrollPane(jt);
+				add(sp);
+                setVisible(true); // refreshes or repaints frame on screen
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
 
     }
