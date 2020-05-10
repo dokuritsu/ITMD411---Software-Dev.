@@ -199,7 +199,7 @@ public class Dao {
 
             // Check the status of ticket
             String timeStamp = null;
-            if(status.equalsIgnoreCase("CLOSED")){
+            if(status.equalsIgnoreCase("CLOSED") || status.equalsIgnoreCase("Close")){
                 // We need to get a timestamp to add to end_date
                 // Create timestamp of ticket
                 timeStamp = new SimpleDateFormat("yyyy/MM/dd, HH:mm:ss").format(Calendar.getInstance().getTime());

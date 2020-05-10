@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -154,10 +155,10 @@ public class Tickets extends JFrame implements ActionListener{
 			}
 		});
 		// set frame options
-		setSize(500, 500);
+		setSize(800, 400);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		setLocationRelativeTo(null);
-		setVisible(true);
+        setVisible(true);
     }
 
     @Override
