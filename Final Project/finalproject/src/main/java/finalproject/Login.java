@@ -98,7 +98,7 @@ public class Login extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Login button clicked");
+                //System.out.println("Login button clicked");
                 boolean isAdmin = false;
                 count = count + 1;
                 int admin;

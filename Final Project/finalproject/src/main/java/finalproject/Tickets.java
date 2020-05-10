@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 public class Tickets extends JFrame implements ActionListener{
@@ -24,7 +25,6 @@ public class Tickets extends JFrame implements ActionListener{
     String user = "";
     Color c = new Color(147, 112, 219);
     Color c2 = new Color(75, 0, 130);
-    JTable jt = null;
 
     // Main menu object items
 	private JMenu mnuFile = new JMenu("File");
@@ -44,7 +44,7 @@ public class Tickets extends JFrame implements ActionListener{
         this.user = user;
         if (chkIfAdmin != isAdmin){
             try{
-				jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
                 jt.setBounds(30, 40, 200, 400);
 
                 // Add some color
@@ -154,7 +154,7 @@ public class Tickets extends JFrame implements ActionListener{
 			}
 		});
 		// set frame options
-		setSize(400, 400);
+		setSize(500, 500);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -162,6 +162,12 @@ public class Tickets extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //  Just decoration
+        UIManager.put("OptionPane.background", (c)); 
+		UIManager.put("Panel.background", (c));
+		UIManager.put("OptionPane.foreground", (Color.white)); 
+		UIManager.put("Panel.foreground", (Color.white));
+
         // implement actions for sub menu items
 		if (e.getSource() == mnuItemExit) {
 			System.exit(0);
@@ -258,11 +264,7 @@ public class Tickets extends JFrame implements ActionListener{
                     System.out.println("Ticket ID: " + tID + " updated successfully!!!");
 
                     try{
-                        setVisible(false);
-                        DefaultTableModel tableModel = new DefaultTableModel();
-                        tableModel = ticketsJTable.buildTableModel(dao.readTickets());
-                        tableModel.fireTableDataChanged();
-                        jt = new JTable(tableModel);
+                        JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
                         jt.setBounds(30, 40, 200, 400);
 
                         // Add some color
@@ -301,6 +303,23 @@ public class Tickets extends JFrame implements ActionListener{
                     if (result != 0){
                         JOptionPane.showMessageDialog(null, "Successfully deleted ticket ID: " + tID + "!");
                         System.out.println("Successfully deleted ticket ID: " + tID + "!");
+
+                        try{
+                            JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readTickets()));
+                            jt.setBounds(30, 40, 200, 400);
+    
+                            // Add some color
+                            jt.setBackground(c);
+                            jt.setForeground(Color.white);
+                            jt.getTableHeader().setBackground(c2);
+                            jt.getTableHeader().setForeground(Color.white);
+                            
+                            JScrollPane sp = new JScrollPane(jt);
+                            add(sp);
+                            setVisible(true); // refreshes or repaints frame on screen
+                        } catch (SQLException se) {
+                            
+                        }
                     } else {
                         System.out.println("Ticket cannot be deleted!!!");
                     }

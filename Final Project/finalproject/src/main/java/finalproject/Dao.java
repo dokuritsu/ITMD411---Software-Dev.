@@ -195,7 +195,7 @@ public class Dao {
             }
             ps.close();
 
-            String updatedDesc = curr_desc + "\nUpdate: " + ticketDesc;
+            String updatedDesc = curr_desc + "\n Update: " + ticketDesc;
 
             // Check the status of ticket
             String timeStamp = null;
