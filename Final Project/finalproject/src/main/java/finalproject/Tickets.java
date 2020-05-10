@@ -153,7 +153,8 @@ public class Tickets extends JFrame implements ActionListener{
 			public void windowClosing(WindowEvent wE) {
 				System.exit(0);
 			}
-		});
+        });
+        
 		// set frame options
 		setSize(800, 400);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
